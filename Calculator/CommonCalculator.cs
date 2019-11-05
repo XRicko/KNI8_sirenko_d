@@ -2,7 +2,8 @@
 
 namespace Calculator
 {
-    class CommonCalculator : Calculator
+    [Serializable]
+    public class CommonCalculator : Calculator
     {
         public void Addition()
         {

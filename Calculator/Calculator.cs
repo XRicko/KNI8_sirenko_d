@@ -1,10 +1,12 @@
-﻿namespace Calculator
+﻿using System;
+
+namespace Calculator
 {
-    abstract class Calculator
+    public abstract class Calculator
     {
         public string Operation { get; set; }
         public double Number { get; set; }
-        public double Result { get; protected set; } = 0;
+        public double Result { get; set; } = 0;
 
         public abstract void Run();
     }

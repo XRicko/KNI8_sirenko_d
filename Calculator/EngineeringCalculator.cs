@@ -2,7 +2,8 @@
 
 namespace Calculator
 {
-    class EngineeringCalculator : Calculator
+    [Serializable]
+    public class EngineeringCalculator : Calculator
     {
         public void Sinus()
         {
