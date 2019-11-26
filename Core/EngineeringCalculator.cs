@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Calculator
+namespace Core
 {
     [Serializable]
-    public class EngineeringCalculator : Calculator
+    public class EngineeringCalculator : AbsCalculator
     {
         public void Sinus()
         {
@@ -36,27 +36,20 @@ namespace Calculator
             {
                 case "sin":
                     Sinus();
-                    Console.WriteLine(Result);
                     break;
                 case "cos":
                     Cosinus();
-                    Console.WriteLine(Result);
                     break;
                 case "tan":
                     Tangens();
-                    Console.WriteLine(Result);
                     break;
                 case "root":
                     Root();
-                    Console.WriteLine(Result);
                     break;
                 case "log10":
                     Logarithm10();
-                    Console.WriteLine(Result);
                     break;
                 default:
-                    Console.WriteLine("Invalid operation");
-                    Console.ReadKey();
                     break;
             }
         }

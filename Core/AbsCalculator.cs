@@ -1,8 +1,9 @@
 ﻿using System;
 
-namespace Calculator
+namespace Core
 {
-    public abstract class Calculator
+    [Serializable]
+    public abstract class AbsCalculator
     {
         public string Operation { get; set; }
         public double Number { get; set; }

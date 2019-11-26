@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Calculator
+namespace Core
 {
     [Serializable]
-    public class CommonCalculator : Calculator
+    public class CommonCalculator : AbsCalculator
     {
         public void Addition()
         {
@@ -42,8 +42,6 @@ namespace Calculator
                     Division();
                     break;
                 default:
-                    Console.WriteLine("Invalid operation");
-                    Console.ReadKey();
                     break;
             }
         }
