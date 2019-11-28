@@ -11,12 +11,18 @@ namespace Calculator
             Console.WriteLine("Welcome to the \"very\" useful calculator!");
             Console.WriteLine();
 
-            CommonCalculator calc = new CommonCalculator();
-            EngineeringCalculator engCalc = new EngineeringCalculator();
-            AreaCalculator areaCalculator = new AreaCalculator();
+            CommonCalculator commonCalc = new CommonCalculator();
+            EngineeringCalculator engineeringCalc = new EngineeringCalculator();
+            AreaCalculator areaCalc = new AreaCalculator();
+            FileManager fileManager = new FileManager();
 
-            FileManager<CommonCalculator, BinaryFormatter> binary =
-                new FileManager<CommonCalculator, BinaryFormatter>();
+            CommonCalculator oldCommCalc = fileManager.Desialization<CommonCalculator>("common_calc.xml");
+            EngineeringCalculator oldEnginCalc = fileManager.Desialization<EngineeringCalculator>("engineering_calc.xml");
+            AreaCalculator oldAreaCalc = fileManager.Desialization<AreaCalculator>("area_calc.xml");
+
+            Console.WriteLine($"Last result of common calculator: {oldCommCalc.Result}");
+            Console.WriteLine($"Last result of engineering calculator: {oldEnginCalc.Result}");
+            Console.WriteLine($"Last result of area calculator: {oldAreaCalc.Result}");
 
             while (true)
             {
@@ -26,118 +32,130 @@ namespace Calculator
 
                 bool isCommon = calcType == "1";
                 bool isArea = calcType == "3";
+                bool commonUsed = false;
+                bool engineeringUsed = false;
+                bool areaUsed = false;
 
                 try
                 {
                     if (calcType == "1")
                     {
+                        commonUsed = true;
+
                         while (isCommon)
                         {
                             Console.Write("Choose operation(+, -, *, /, = to show result and stop, c to change calculator): ");
-                            calc.Operation = Console.ReadLine();
+                            commonCalc.Operation = Console.ReadLine();
 
-                            if (calc.Operation == "=")
+                            if (commonCalc.Operation == "=")
                             {
-                                Console.WriteLine(calc.Result);
+                                Console.WriteLine(commonCalc.Result);
+                                Console.WriteLine();
                                 break;
                             }
-                            else if (calc.Operation.ToLower() == "c")
+                            else if (commonCalc.Operation.ToLower() == "c")
                             {
                                 isCommon = !isCommon;
                                 break;
                             }
 
                             Console.Write("Enter a number: ");
-                            calc.Number = Convert.ToDouble(Console.ReadLine());
+                            commonCalc.Number = Convert.ToDouble(Console.ReadLine());
 
-                            calc.Run();
+                            commonCalc.Run();
                         }
                     }
                     else if (calcType == "2")
                     {
+                        engineeringUsed = true;
+
                         while (!isCommon && !isArea)
                         {
                             Console.Write("Choose operation(sin, cos, tan, root, log10, c to change calculator): ");
-                            engCalc.Operation = Console.ReadLine();
+                            engineeringCalc.Operation = Console.ReadLine();
 
-                            if (engCalc.Operation.ToLower() == "c")
+                            if (engineeringCalc.Operation.ToLower() == "c")
                             {
                                 isCommon = !isCommon;
                                 break;
                             }
 
                             Console.Write("Enter a number: ");
-                            engCalc.Number = Convert.ToDouble(Console.ReadLine());
+                            engineeringCalc.Number = Convert.ToDouble(Console.ReadLine());
 
-                            engCalc.Run();
-                            Console.WriteLine(engCalc.Result);
+                            engineeringCalc.Run();
+                            Console.WriteLine(engineeringCalc.Result);
+                            Console.WriteLine();
                         }
                     }
                     else if (calcType == "3")
                     {
+                        areaUsed = true;
+
                         while (isArea)
                         {
-                            areaCalculator.Rect = new Rectangle();
-                            areaCalculator.Triangl = new Triangle();
-                            areaCalculator.Circl = new Circle();
-                            areaCalculator.Trapez = new Trapezoid();
+                            areaCalc.Rect = new Rectangle();
+                            areaCalc.Triangl = new Triangle();
+                            areaCalc.Circl = new Circle();
+                            areaCalc.Trapez = new Trapezoid();
+                            areaCalc.Polyg = new Polygon();
 
-                            Console.Write("Choose figure(rect, square, triangle, circle, trapezoid): ");
-                            areaCalculator.Operation = Console.ReadLine();
+                            Console.Write("Choose figure(rect, square, triangle, circle, trapezoid, polygon, c to change calc): ");
+                            areaCalc.Operation = Console.ReadLine();
 
-                            if (areaCalculator.Operation.ToLower() == "c")
+                            if (areaCalc.Operation.ToLower() == "c")
                             {
                                 isArea = !isArea;
                                 break;
                             }
 
-                            switch (areaCalculator.Operation)
+                            switch (areaCalc.Operation)
                             {
                                 case "rect":
                                     Console.Write("Enter length: ");
-                                    areaCalculator.Rect.Length = Convert.ToDouble(Console.ReadLine());
+                                    areaCalc.Rect.Length = Convert.ToDouble(Console.ReadLine());
 
                                     Console.Write("Enter width: ");
-                                    areaCalculator.Rect.Width = Convert.ToDouble(Console.ReadLine());
+                                    areaCalc.Rect.Width = Convert.ToDouble(Console.ReadLine());
 
                                     break;
                                 case "square":
                                     Console.Write("Enter a side: ");
-                                    areaCalculator.Rect.Width = areaCalculator.Rect.Length = Convert.ToDouble(Console.ReadLine());
+                                    areaCalc.Rect.Width = areaCalc.Rect.Length = Convert.ToDouble(Console.ReadLine());
                                     break;
                                 case "triangle":
                                     Console.Write("Choose a formula(1 - side and height, 2 - three sides, 3 - two sides and angle): ");
-                                    areaCalculator.Formula = Console.ReadLine();
+                                    areaCalc.Formula = Console.ReadLine();
 
-                                    if (areaCalculator.Formula == "1")
+                                    if (areaCalc.Formula == "1")
                                     {
                                         Console.Write("Enter a side: ");
-                                        areaCalculator.Triangl.SideA = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.SideA = Convert.ToDouble(Console.ReadLine());
 
                                         Console.Write("Enter height: ");
-                                        areaCalculator.Triangl.Height = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.Height = Convert.ToDouble(Console.ReadLine());
                                     }
-                                    else if (areaCalculator.Formula == "2")
+                                    else if (areaCalc.Formula == "2")
                                     {
                                         Console.Write("Enter 1st side: ");
-                                        areaCalculator.Triangl.SideA = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.SideA = Convert.ToDouble(Console.ReadLine());
 
                                         Console.Write("Enter 2st side: ");
-                                        areaCalculator.Triangl.SideB = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.SideB = Convert.ToDouble(Console.ReadLine());
 
                                         Console.Write("Enter 3rd side: ");
-                                        areaCalculator.Triangl.SideC = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.SideC = Convert.ToDouble(Console.ReadLine());
                                     }
-                                    else if (areaCalculator.Formula == "3")
+                                    else if (areaCalc.Formula == "3")
                                     {
                                         Console.Write("Enter 1st side: ");
-                                        areaCalculator.Triangl.SideA = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.SideA = Convert.ToDouble(Console.ReadLine());
 
                                         Console.Write("Enter 2nd side: ");
-                                        areaCalculator.Triangl.SideB = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.SideB = Convert.ToDouble(Console.ReadLine());
 
                                         Console.Write("Enter an angle between them: ");
-                                        areaCalculator.Triangl.Angle = Convert.ToDouble(Console.ReadLine());
+                                        areaCalc.Triangl.Angle = Convert.ToDouble(Console.ReadLine());
                                     }
                                     else
                                     {
@@ -147,23 +165,35 @@ namespace Calculator
                                     break;
                                 case "circle":
                                     Console.Write("Enter a radius: ");
-                                    areaCalculator.Circl.Radius = Convert.ToDouble(Console.ReadLine());
+                                    areaCalc.Circl.Radius = Convert.ToDouble(Console.ReadLine());
                                     break;
                                 case "trapezoid":
                                     Console.Write("Enter 1st base: ");
-                                    areaCalculator.Trapez.BaseA = Convert.ToDouble(Console.ReadLine());
+                                    areaCalc.Trapez.BaseA = Convert.ToDouble(Console.ReadLine());
 
                                     Console.Write("Enter 2nd base: ");
-                                    areaCalculator.Trapez.BaseB = Convert.ToDouble(Console.ReadLine());
+                                    areaCalc.Trapez.BaseB = Convert.ToDouble(Console.ReadLine());
 
                                     Console.Write("Enter height: ");
-                                    areaCalculator.Trapez.Height = Convert.ToDouble(Console.ReadLine());
+                                    areaCalc.Trapez.Height = Convert.ToDouble(Console.ReadLine());
 
+                                    break;
+                                case "polygon":
+                                    Console.Write("Enter number of sides: ");
+                                    areaCalc.Polyg.Sides = Convert.ToInt32(Console.ReadLine());
+
+                                    Console.Write("Enter lenhgt: ");
+                                    areaCalc.Polyg.Lenght = Convert.ToDouble(Console.ReadLine());
+
+                                    break;
+                                default:
+                                    Console.WriteLine("Invalid input");
                                     break;
                             }
 
-                            areaCalculator.Run();
-                            Console.WriteLine(areaCalculator.Result);
+                            areaCalc.Run();
+                            Console.WriteLine(areaCalc.Result);
+                            Console.WriteLine();
                         }
                     }
                     else if (calcType == "4")
@@ -175,6 +205,19 @@ namespace Calculator
                         Console.WriteLine("Invalid input");
                         Console.ReadKey();
                         break;
+                    }
+
+                    if (commonUsed)
+                    {
+                        fileManager.Serialization(commonCalc, "common_calc.xml");
+                    }
+                    if (engineeringUsed)
+                    {
+                        fileManager.Serialization(engineeringCalc, "engineering_calc.xml");
+                    }
+                    if (areaUsed)
+                    {
+                        fileManager.Serialization(areaCalc, "area_calc.xml");
                     }
                 }
                 catch (Exception e)

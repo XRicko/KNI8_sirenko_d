@@ -5,22 +5,22 @@ namespace Core
     [Serializable]
     public class CommonCalculator : AbsCalculator
     {
-        public void Addition()
+        private void Addition()
         {
             Result += Number;
         }
 
-        public void Subtraction()
+        private void Subtraction()
         {
             Result -= Number;
         }
 
-        public void Multiplication()
+        private void Multiplication()
         {
             Result *= Number;
         }
 
-        public void Division()
+        private void Division()
         {
             Result /= Number;
         }

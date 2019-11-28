@@ -7,6 +7,7 @@
         public Triangle Triangl { get; set; }
         public Circle Circl { get; set; }
         public Trapezoid Trapez { get; set; }
+        public Polygon Polyg { get; set; }
 
         public override void Run()
         {
@@ -26,6 +27,9 @@
                     break;
                 case "trapezoid":
                     Result = Trapez.Area();
+                    break;
+                case "polygon":
+                    Result = Polyg.Area();
                     break;
             }
         }

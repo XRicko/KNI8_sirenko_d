@@ -5,27 +5,27 @@ namespace Core
     [Serializable]
     public class EngineeringCalculator : AbsCalculator
     {
-        public void Sinus()
+        private void Sinus()
         {
             Result = Math.Sin(Number);
         }
 
-        public void Cosinus()
+        private void Cosinus()
         {
             Result = Math.Cos(Number);
         }
 
-        public void Tangens()
+        private void Tangens()
         {
             Result = Math.Tan(Number);
         }
 
-        public void Root()
+        private void Root()
         {
             Result = Math.Sqrt(Number);
         }
 
-        public void Logarithm10()
+        private void Logarithm10()
         {
             Result = Math.Log10(Number);
         }
